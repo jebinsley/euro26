@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Euro '26 — Accommodation Research</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Segoe UI, Helvetica, Arial, sans-serif; background: #faf7f2; color: #2c2c2c; }
+
+  .hero {
+    background: linear-gradient(160deg, #1a3a5c 0%, #2d6a9f 55%, #c0824a 100%);
+    color: #fff; padding: 36px 40px 30px; text-align: center;
+  }
+  .hero .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; opacity: .7; margin-bottom: 8px; }
+  .hero h1 { font-size: 32px; font-weight: normal; }
+  .hero .sub { font-size: 14px; margin-top: 8px; opacity: .8; }
+
+  .back { display: inline-block; margin: 20px 0 0 24px; font-size: 13px; color: #2d6a9f; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+
+  .section { max-width: 960px; margin: 32px auto; padding: 0 20px; }
+
+  .option-header {
+    background: #1a3a5c; color: #fff;
+    border-radius: 10px 10px 0 0;
+    padding: 16px 24px; margin-top: 36px;
+  }
+  .option-header h2 { font-size: 18px; font-weight: bold; }
+  .option-header .sub { font-size: 13px; opacity: .75; margin-top: 4px; }
+
+  .section-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 24px;
+    background: #e8f0f8; border-bottom: 1px solid #cdd8e8;
+    font-size: 13px; color: #1a3a5c; font-weight: bold;
+  }
+  .section-bar .flag { font-size: 20px; }
+  .section-bar .dates { margin-left: auto; color: #c0824a; font-weight: normal; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .cards-wrap { background: #fff; border-radius: 0 0 10px 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+
+  .card {
+    background: #faf7f2; border-radius: 10px; overflow: hidden;
+    display: flex; flex-direction: column;
+    border: 1px solid #e5e0d8;
+    position: relative;
+  }
+  .card.pick1 { border: 2px solid #c0824a; }
+  .card.pick2 { border: 2px solid #2d6a9f; }
+  .card.value { border: 2px solid #16a34a; }
+
+  .card-badge {
+    position: absolute; top: 10px; left: 10px; z-index: 1;
+    font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: .8px;
+    padding: 3px 10px; border-radius: 20px;
+  }
+  .b-orange { background: #c0824a; color: #fff; }
+  .b-blue { background: #2d6a9f; color: #fff; }
+  .b-green { background: #16a34a; color: #fff; }
+  .b-purple { background: #7c3aed; color: #fff; }
+
+  .card-img { height: 140px; background: #dde8f0; display: flex; align-items: center; justify-content: center; font-size: 44px; }
+
+  .card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 7px; }
+  .card-name { font-size: 15px; font-weight: bold; color: #1a3a5c; line-height: 1.3; }
+  .card-meta { font-size: 11px; color: #888; }
+  .card-rating { font-size: 13px; font-weight: bold; }
+  .card-rating .cnt { font-weight: normal; color: #888; font-size: 11px; }
+  .card-price { font-size: 17px; font-weight: bold; color: #1a3a5c; }
+  .card-price .per { font-size: 11px; font-weight: normal; color: #888; }
+  .card-price .total { font-size: 12px; color: #555; }
+
+  ul.hi { list-style: none; }
+  ul.hi li { font-size: 12px; color: #444; padding: 2px 0; }
+  ul.hi li::before { content: "✓ "; color: #16a34a; font-weight: bold; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+  .tag { font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: .6px; padding: 2px 8px; border-radius: 20px; }
+  .tag-green { background: #dcfce7; color: #166534; }
+  .tag-yellow { background: #fef9c3; color: #854d0e; }
+  .tag-red { background: #fee2e2; color: #991b1b; }
+  .tag-blue { background: #dbeafe; color: #1e40af; }
+  .tag-gray { background: #f1f5f9; color: #475569; }
+
+  .card-footer { padding: 0 14px 14px; }
+  .btn {
+    display: block; width: 100%; padding: 10px; border-radius: 6px; font-size: 13px;
+    font-weight: bold; text-decoration: none; text-align: center; background: #ff5a5f; color: #fff;
+  }
+  .btn:hover { background: #e04e53; }
+
+  .note-box {
+    background: #fff8f0; border-left: 3px solid #c0824a;
+    padding: 12px 16px; border-radius: 0 8px 8px 0;
+    font-size: 13px; color: #555; margin-bottom: 16px; line-height: 1.65;
+  }
+  .alert-box {
+    background: #fff1f2; border-left: 3px solid #e11d48;
+    padding: 12px 16px; border-radius: 0 8px 8px 0;
+    font-size: 13px; color: #555; margin-bottom: 16px; line-height: 1.65;
+  }
+
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 16px; }
+  .compare-table th { background: #1a3a5c; color: #fff; padding: 8px 12px; text-align: left; }
+  .compare-table td { padding: 8px 12px; border-bottom: 1px solid #e5e0d8; }
+  .compare-table tr:nth-child(even) td { background: #f8f5f0; }
+  .compare-table .best { color: #c0824a; font-weight: bold; }
+
+  .status-row {
+    background: #fff; border-radius: 8px; padding: 12px 16px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07); margin-bottom: 10px; font-size: 13px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .dot-pending { background: #f59e0b; }
+  .dot-done { background: #16a34a; }
+
+  footer { text-align: center; padding: 24px; color: #bbb; font-size: 11px; letter-spacing: 1px; margin-top: 40px; }
+  @media(max-width:600px) { .cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">Euro '26 · Elizabeth's 50th</div>
+  <h1>Accommodation Research</h1>
+  <div class="sub">Positano · Munich &nbsp;·&nbsp; September 2026</div>
+</div>
+
+<a class="back" href="euro26_itinerary.html">← Back to Itinerary</a>
+
+<div class="section">
+  <div class="status-row"><div class="dot dot-done"></div><strong>Positano — Option 1:</strong> 4 guests (2 couples), 2BR/2BA · 5 nights Sep 16–21 · 5 options researched</div>
+  <div class="status-row"><div class="dot dot-done"></div><strong>Positano — Option 2:</strong> 2 guests, sea view, close to beach/town · 5 nights Sep 16–21 · 3 options researched</div>
+  <div class="status-row"><div class="dot dot-pending"></div><strong>Munich:</strong> 2 guests · 3 nights Sep 22–25 · Oktoberfest week — research pending</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- OPTION 1: 4 GUESTS, 2BR/2BA -->
+<!-- ============================================================ -->
+
+<div class="section">
+  <div class="option-header">
+    <h2>🇮🇹 Option 1 — Two Couples Together</h2>
+    <div class="sub">4 guests · 2 bedrooms / 2 bathrooms · Sep 16–21 · 5 nights · Positano</div>
+  </div>
+
+  <div class="cards-wrap">
+    <div class="note-box">All 5 properties verified available Sep 16–21 for 4 guests. All marked "Rare Find — usually booked." Prices are total for 5 nights.</div>
+
+    <div class="cards">
+
+      <!-- Casa Caldiero / Lo Scoglio -->
+      <div class="card pick1">
+        <div class="card-badge b-orange">⭐ Top Pick</div>
+        <div class="card-img">🏖️</div>
+        <div class="card-body">
+          <div class="card-name">Casa Caldiero — Lo Scoglio</div>
+          <div class="card-meta">Entire unit · 2 bed · 2.5 bath · Beachfront · Sleeps 5</div>
+          <div class="card-rating">★ 4.98 <span class="cnt">· 209 reviews · Guest Favorite · Top 10%</span></div>
+          <div class="card-price">$1,387<span class="per">/night</span><div class="total">$6,936 total for 5 nights</div></div>
+          <ul class="hi">
+            <li>2-minute walk to beach — best beach access</li>
+            <li>Panoramic sea view terrace</li>
+            <li>Two entrances: road above + beach/ferry below</li>
+            <li>Host Michele greets personally, wine on arrival</li>
+            <li>Steps to restaurants and shops</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-green">Free cancel Aug 17</span>
+            <span class="tag tag-blue">Beachfront</span>
+            <span class="tag tag-blue">Central</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="btn" href="https://www.airbnb.com/rooms/15037384?adults=4&check_in=2026-09-16&check_out=2026-09-21" target="_blank">View on Airbnb</a>
+        </div>
+      </div>
+
+      <!-- Villino Sarno -->
+      <div class="card pick2">
+        <div class="card-badge b-blue">Most Central</div>
+        <div class="card-img">🏛️</div>
+        <div class="card-body">
+          <div class="card-name">Villino Sarno — Private Cliffside Home</div>
+          <div class="card-meta">Entire vacation home · 3 bed · 2 bath · Central · Sleeps 5</div>
+          <div class="card-rating">★ 4.77 <span class="cnt">· 149 reviews · Guest Favorite</span></div>
+          <div class="card-price">$1,440<span class="per">/night</span><div class="total">$7,201 total for 5 nights</div></div>
+          <ul class="hi">
+            <li>5-min walk to beach AND town square</li>
+            <li>3 bedrooms — most flexible layout for 2 couples</li>
+            <li>Sea view panoramic terrace with lounge + dining</li>
+            <li>Historic cliffside family home — antique furnishings</li>
+            <li>Host Adele: transfers, porter, welcome refreshments</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-green">Free cancel Aug 17</span>
+            <span class="tag tag-blue">3 Bedrooms</span>
+            <span class="tag tag-blue">5min to beach</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="btn" href="https://www.airbnb.com/rooms/17039021?adults=4&check_in=2026-09-16&check_out=2026-09-21" target="_blank">View on Airbnb</a>
+        </div>
+      </div>
+
+      <!-- Casa Mia -->
+      <div class="card value">
+        <div class="card-badge b-green">Best Value</div>
+        <div class="card-img">🏡</div>
+        <div class="card-body">
+          <div class="card-name">Casa Mia — Historical Charming Home</div>
+          <div class="card-meta">Entire home · 3 bed · 2.5 bath · Panoramic · Sleeps 5</div>
+          <div class="card-rating">★ 4.93 <span class="cnt">· 240 reviews · Guest Favorite · Top 10%</span></div>
+          <div class="card-price">$832<span class="per">/night</span><div class="total">$4,162 total for 5 nights</div></div>
+          <ul class="hi">
+            <li>Lowest price with 3 bedrooms and 240+ reviews</li>
+            <li>1800s historical mansion — panoramic terrace + garden patio</li>
+            <li>Bus stop 200m away (every 15 min to beach)</li>
+            <li>Host Pasquale: 13 years, Superhost, highly responsive</li>
+            <li>Sea view and beach access listed as amenities</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-green">Free cancel Sep 11</span>
+            <span class="tag tag-green">Best Value</span>
+            <span class="tag tag-blue">3 Bedrooms</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="btn" href="https://www.airbnb.com/rooms/1207502?adults=4&check_in=2026-09-16&check_out=2026-09-21" target="_blank">View on Airbnb</a>
+        </div>
+      </div>
+
+      <!-- Casa Sunrise -->
+      <div class="card">
+        <div class="card-badge b-purple">Best Views</div>
+        <div class="card-img">🌅</div>
+        <div class="card-body">
+          <div class="card-name">Casa Sunrise</div>
+          <div class="card-meta">Entire home · 2 bed · 2 bath · Hillside · Sleeps 4</div>
+          <div class="card-rating">★ 5.0 <span class="cnt">· 119 reviews · Guest Favorite · Top 5%</span></div>
+          <div class="card-price">$1,309<span class="per">/night</span><div class="total">$6,543 total for 5 nights</div></div>
+          <ul class="hi">
+            <li>360° panoramic terrace (130 m²) — every room has bay view</li>
+            <li>Renovated 2019 — two en-suite-adjacent bedrooms</li>
+            <li>Host Roberta: arranges transfers, drivers, restaurants</li>
+            <li>Note: 15–20 min walk to town (steep), taxi ~€45 each way</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-green">Free cancel Sep 11</span>
+            <span class="tag tag-yellow">Hillside / Taxi needed</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="btn" href="https://www.airbnb.com/rooms/40909757?adults=4&check_in=2026-09-16&check_out=2026-09-21" target="_blank">View on Airbnb</a>
+        </div>
+      </div>
+
+      <!-- Antonio's House -->
+      <div class="card">
+        <div class="card-badge b-blue">Easiest Access</div>
+        <div class="card-img">🌊</div>
+        <div class="card-body">
+          <div class="card-name">De Vivo Realty — Antonio's House</div>
+          <div class="card-meta">Entire home · 2 bed · 2 bath · Road level · Sleeps 4</div>
+          <div class="card-rating">★ 4.92 <span class="cnt">· 109 reviews · Guest Favorite</span></div>
+          <div class="card-price">$1,032<span class="per">/night</span><div class="total">$5,158 total <s style="color:#aaa;font-size:11px">$5,930</s></div></div>
+          <ul class="hi">
+            <li>Only 2–3 steps from main road — exceptional for Positano</li>
+            <li>360° terrace with sea view and Gulf of Salerno panorama</li>
+            <li>Bus stop and café steps away — very walkable</li>
+            <li>Professional mgmt (De Vivo Realty, 1,810 reviews across listings)</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-yellow">Likely strict cancel</span>
+            <span class="tag tag-blue">Accessible</span>
+            <span class="tag tag-blue">Road level</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="btn" href="https://www.airbnb.com/rooms/844805712842326367?adults=4&check_in=2026-09-16&check_out=2026-09-21" target="_blank">View on Airbnb</a>
+        </div>
+      </div>
+
+    </div><!-- /cards -->
+
+    <table class="compare-table" style="margin-top:24px">
+      <tr><th>Property</th><th>Rating</th><th>Beds/Baths</th><th>5-Night Total</th><th>Beach</th><th>Cancel</th></tr>
+      <tr><td><strong>Casa Caldiero — Lo Scoglio</strong></td><td class="best">4.98 ★</td><td>2BR / 2.5BA</td><td>$6,936</td><td class="best">2 min walk</td><td>Free to Aug 17</td></tr>
+      <tr><td><strong>Villino Sarno (Cliffside)</strong></td><td>4.77 ★</td><td>3BR / 2BA</td><td>$7,201</td><td>5 min walk</td><td>Free to Aug 17</td></tr>
+      <tr><td><strong>Casa Mia</strong></td><td>4.93 ★</td><td>3BR / 2.5BA</td><td class="best">$4,162</td><td>Bus / 15 min</td><td>Free to Sep 11</td></tr>
+      <tr><td><strong>Casa Sunrise</strong></td><td class="best">5.0 ★</td><td>2BR / 2BA</td><td>$6,543</td><td>Taxi needed</td><td>Free to Sep 11</td></tr>
+      <tr><td><strong>Antonio's House</strong></td><td>4.92 ★</td><td>2BR / 2BA</td><td>$5,158</td><td>Walk / bus</td><td>Likely strict</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- OPTION 2: 2 GUESTS, CLOSE TO BEACH/TOWN -->
+<!-- ============================================================ -->
+
+<div class="section">
+  <div class="option-header">
+    <h2>🇮🇹 Option 2 — Jeb &amp; Elizabeth Only</h2>
+    <div class="sub">2 guests · Sea view · Close to beach &amp; town center · Sep 16–21 · 5 nights · Positano</div>
+  </div>
+
+  <div class="cards-wrap">
+    <div class="note-box">Best 2-guest options from earlier research — all verified available, all with sea views. Prices total for 5 nights.</div>
+
+    <div class="cards">
+
+      <!-- Sunshine House -->
+      <div class="card pick1">
+        <div class="card-badge b-orange">⭐ Top Pick</div>
+        <div class="card-img">🌊</div>
+        <div class="card-body">
+          <div class="card-name">Sunshine House</div>
+          <div class="card-meta">Entire vacation home · 1 bed · 1 bath · Fornillo · Sleeps 2</div>
+          <div class="card-rating">★ 4.99 <span class="cnt">· 86 reviews · Guest Favorite · Top 1%</span></div>
+          <div class="card-price">$677<span class="per">/night</span><div class="total">$3,383 total for 5 nights</div></div>
+          <ul class="hi">
+            <li>Breathtaking sea views from private patio</li>
+            <li>Host Giuseppe meets you with wine, snacks &amp; fruit</li>
+            <li>Birthday surprises for special occasions</li>
+            <li>10 min to Fornillo beach, 20 min to town center</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-green">Free cancel Sep 11</span>
+            <span class="tag tag-blue">Sea View</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="btn" href="https://www.airbnb.com/rooms/886839480056601167?adults=2&check_in=2026-09-16&check_out=2026-09-21" target="_blank">View on Airbnb</a>
+        </div>
+      </div>
+
+      <!-- Amami Positano -->
+      <div class="card">
+        <div class="card-badge b-purple">Hot Tub</div>
+        <div class="card-img">🛁</div>
+        <div class="card-body">
+          <div class="card-name">Amami Positano | Terrace, Jacuzzi &amp; Sea View</div>
+          <div class="card-meta">Entire apartment · 1 bed · 1 bath · Central · Sleeps 2</div>
+          <div class="card-rating">★ 5.0 <span class="cnt">· 6 reviews · Superhost</span></div>
+          <div class="card-price">$696<span class="per">/night</span><div class="total">$3,482 total <s style="color:#aaa;font-size:11px">$4,324</s></div></div>
+          <ul class="hi">
+            <li>Private hot tub — rare on the Amalfi Coast</li>
+            <li>4 outdoor terraces with panoramic sea views</li>
+            <li>Lemon &amp; orange trees, outdoor shower in rock</li>
+            <li>Modern, brand new interior</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-green">Free cancel Aug 17</span>
+            <span class="tag tag-blue">Hot Tub</span>
+            <span class="tag tag-blue">Sea View</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="btn" href="https://www.airbnb.com/rooms/1678187185866605809?adults=2&check_in=2026-09-16&check_out=2026-09-21" target="_blank">View on Airbnb</a>
+        </div>
+      </div>
+
+      <!-- Sumptuous Villa -->
+      <div class="card">
+        <div class="card-badge b-purple">Splurge</div>
+        <div class="card-img">🏛️</div>
+        <div class="card-body">
+          <div class="card-name">Sumptuous Villa with Panoramic Terrace</div>
+          <div class="card-meta">Entire villa · 2 bed · 2 bath · Central · Sleeps 4</div>
+          <div class="card-rating">★ 4.98 <span class="cnt">· 264 reviews · Guest Favorite · Top 5%</span></div>
+          <div class="card-price">$1,880<span class="per">/night</span><div class="total">$9,399 total for 5 nights</div></div>
+          <ul class="hi">
+            <li>Most reviewed &amp; trusted listing in Positano</li>
+            <li>On-site host Donatella handles restaurant reservations</li>
+            <li>Full villa — 2 bedrooms, 2 baths for just the 2 of you</li>
+            <li>Central — steps to restaurants &amp; shops</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-green">Free cancel Aug 17</span>
+            <span class="tag tag-blue">Villa</span>
+            <span class="tag tag-blue">264 Reviews</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="btn" href="https://www.airbnb.com/rooms/23951464?adults=2&check_in=2026-09-16&check_out=2026-09-21" target="_blank">View on Airbnb</a>
+        </div>
+      </div>
+
+    </div><!-- /cards -->
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MUNICH -->
+<!-- ============================================================ -->
+
+<div class="section">
+  <div class="option-header" style="background:#7c3aed;">
+    <h2>🇩🇪 Munich — Oktoberfest</h2>
+    <div class="sub">2 guests · 3 nights Sep 22–25 · Near Hbf or Theresienwiese · Research pending</div>
+  </div>
+  <div class="cards-wrap">
+    <div class="alert-box">🚨 <strong>Oktoberfest week — extremely limited availability.</strong> Hotels and Airbnbs near Hbf and Theresienwiese sell out months in advance. Research in progress.</div>
+    <div class="status-row"><div class="dot dot-pending"></div>Munich shortlist coming soon — Airbnb &amp; VRBO search in progress</div>
+  </div>
+</div>
+
+<footer>Euro '26 · Accommodation Research · Updated June 2026 · <a href="euro26_itinerary.html" style="color:#bbb">Back to Itinerary</a></footer>
+
+</body>
+</html>
