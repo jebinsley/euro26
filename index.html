@@ -13,6 +13,18 @@
     color: #fff;
     padding: 52px 40px 44px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-photo {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 4px solid rgba(255,255,255,0.6);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    margin-bottom: 18px;
   }
   .hero .eyebrow { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; opacity: .7; margin-bottom: 12px; font-family: Helvetica, Arial, sans-serif; }
   .hero h1 { font-size: 46px; font-weight: normal; letter-spacing: 1px; line-height: 1.15; }
@@ -163,6 +175,7 @@
 <body>
 
 <div class="hero">
+  <img src="elizabeth.jpeg" class="hero-photo" alt="Jeb & Elizabeth">
   <div class="eyebrow">A Celebration Trip</div>
   <h1>Euro '26<br>Italy & Bavaria</h1>
   <div class="birthday">✦ Elizabeth's 50th Birthday ✦</div>
@@ -331,10 +344,11 @@
       <div class="event">
         <div class="ei">🏨</div>
         <div class="eb">
-          <div class="et">Accommodation — Munich (3 Nights: Sep 22–25)</div>
-          <div class="ed">Research in progress — Oktoberfest week, extremely limited availability.<br>
-          <em>Tip: Book near Hbf or Sendlinger Tor — 10–15 min walk to Theresienwiese</em></div>
-          <div class="em"><span class="tag tb">⚡ Book Immediately</span> <a href="accommodation.html" style="color:#991b1b;font-weight:bold;">→ View accommodation page</a> · Shortlist coming soon</div>
+          <div class="et">Koenigshof, a Luxury Collection Hotel — Munich</div>
+          <div class="ed">Karlsplatz 25, Munich 80335 · +49 89 858407040<br>
+          Sep 22–24 · 2 nights · Steps from Karlsplatz, 15 min walk to Theresienwiese<br>
+          <strong>Suite Night Award eligible:</strong> King Suite, Junior Suite, Executive Room — apply in Marriott app before arrival</div>
+          <div class="em"><span class="tag tc">✓ Confirmed</span> Confirmation #85279551 · Marriott Bonvoy Luxury Collection</div>
         </div>
       </div>
       <div class="event">
@@ -444,6 +458,7 @@
           <li>✈️ UA 966 — EWR → Naples (Sep 15, 8:35 PM)</li>
           <li>🌙 Nightjet NJ294 — Rome → Munich (Sep 21, 18:10)</li>
           <li>✈️ UA 8860 — Munich → LAX (Sep 25, 12:15 PM)</li>
+          <li>🏨 Koenigshof Munich — Sep 22–24 · Conf #85279551</li>
         </ul>
       </div>
       <div class="cl-col">
@@ -451,7 +466,6 @@
         <ul>
           <li>🚨 Hacker-Festzelt reservation — check portal now</li>
           <li>🏨 Hotel Positano — 5 nights (Sep 16–21)</li>
-          <li>🏨 Hotel Munich — 3 nights (Sep 22–25)</li>
           <li>🚐 Transfer: Naples Airport → Positano</li>
           <li>⛴️ Ferry: Positano → Naples (Sep 21 AM)</li>
           <li>🚄 Train: Naples → Rome (Sep 21, target 10:30–12:00)</li>
