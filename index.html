@@ -119,12 +119,61 @@
 
   footer { text-align: center; padding: 24px; color: #bbb; font-size: 11px; font-family: Helvetica, Arial, sans-serif; letter-spacing: 1px; }
 
-  @media (max-width: 600px) {
-    .hero h1 { font-size: 30px; }
+  @media (max-width: 640px) {
+    body { overflow-x: hidden; }
+
+    /* Hero */
+    .hero { padding: 32px 16px 24px; }
+    .hero h1 { font-size: 28px; }
+    .hero .birthday { font-size: 14px; }
+    .hero .dates { font-size: 12px; letter-spacing: 1px; }
+
+    /* Destination strip */
+    .strip { flex-direction: column; align-items: stretch; }
+    .strip-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px 20px; width: 100%; }
+    .strip-item:last-child { border-bottom: none; }
+    .strip-item .sv { font-size: 13px; }
+
+    /* Timeline container */
+    .timeline { padding: 20px 12px 36px; }
+    .timeline-controls button { font-size: 10px; padding: 6px 12px; }
+
+    /* Day row — shrink date column */
+    .day { grid-template-columns: 50px 1fr; gap: 0 10px; }
+    .day-label { padding-top: 12px; }
+    .day-label .num { font-size: 22px; }
+    .day-label .dow { font-size: 8px; letter-spacing: 1.5px; }
+    .day-label .mon { font-size: 9px; }
+    .day-content { padding: 0 0 24px 14px; }
+    .day-content::before { left: -6px; width: 10px; height: 10px; top: 16px; }
+    .day-title { font-size: 16px; padding-top: 10px; margin-bottom: 2px; }
+    .day-loc { font-size: 9px; letter-spacing: 1.5px; margin-bottom: 10px; }
+
+    /* Event cards */
+    details.event > summary { padding: 11px 10px; min-height: 48px; gap: 10px; }
+    .ei { font-size: 17px; }
+    .et { font-size: 13px; }
+    .es { font-size: 11px; }
+    .event-detail { padding: 0 10px 12px 32px; }
+    .event-detail .ed { font-size: 12px; }
+    .event-detail .em { font-size: 10px; margin-top: 4px; }
+    .tag { font-size: 9px; padding: 2px 6px; }
+
+    /* Notes & alerts */
+    .note, .alert { font-size: 12px; padding: 10px 12px; }
+
+    /* Checklist */
+    .checklist-wrap { padding: 0 12px; }
     .cl-grid { grid-template-columns: 1fr; }
+    .cl-col { padding: 14px 16px; }
+    .cl-col:first-child { border-right: none; border-bottom: 1px solid #f0ede8; }
+    .cl-col li { font-size: 12px; line-height: 1.9; }
+
+    /* Tips */
+    .tips { padding: 0 12px; }
     .tips-grid { grid-template-columns: 1fr; }
-    .strip { flex-direction: column; align-items: center; }
-    .strip-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); width: 100%; }
+    .tips-inner { padding: 20px 16px; }
+    .tip-card .tc-body { font-size: 12px; }
   }
 </style>
 </head>
@@ -340,6 +389,8 @@
           <div class="em"><span class="tag tb">Book Now</span> Da Paolino and Il Riccio fill weeks ahead in September</div>
         </div>
       </details>
+    </div>
+  </div>
 
   <!-- Sep 18 -->
   <div class="day">
